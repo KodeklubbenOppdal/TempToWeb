@@ -44,7 +44,7 @@ void loop()
 	}
 	// Hvis temperature er mindre en "MinTemperature" avlest, skriv temperature til "MinTemperature"
 
-	if (Temperature < MinTemperature)
+	else if (Temperature < MinTemperature)
 	{
 		MinTemperature = Temperature;
 	}
