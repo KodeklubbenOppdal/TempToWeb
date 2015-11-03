@@ -12,10 +12,17 @@ OneWire oneWire(ONE_WIRE_BUS);
 // Pass our oneWire reference to Dallas Temperature.
 DallasTemperature TemperatureSensors(&oneWire);
 
+// Deklarerer variabler 
+float MaxTemperature;
+
+
 void setup()
 {
+
 	Serial.begin(9600);
 	TemperatureSensors.begin();
+	MaxTemperature = -300;
+
 }
 
 
@@ -24,7 +31,19 @@ void loop()
 	// Leser tempratur fra sensor
 	TemperatureSensors.requestTemperatures();
 	float Temperature = TemperatureSensors.getTempCByIndex(0);
+	// Hvis temperature er større en "MaxTemperature" avlest, skriv temperature til "MaxTemperature"
+
+	if (Temperature>MaxTemperature)
+	{
+		MaxTemperature = Temperature;
+	}
+	
+	
 	// Skriver temp ut
-	Serial.println(Temperature);
+	String utString = "Tempreature: " + (String)Temperature;
+	Serial.println(utString);
+	// Skriver ut max temperature
+	utString = "Max temperature: " + (String)MaxTemperature;
+	Serial.println(utString);
 
 }
