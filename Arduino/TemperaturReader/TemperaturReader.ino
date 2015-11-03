@@ -21,8 +21,12 @@ void setup()
 
 	Serial.begin(9600);
 	TemperatureSensors.begin();
-	MaxTemperature = -300;
-	MinTemperature = 1000;
+	TemperatureSensors.requestTemperatures();
+	// Leser tempratur fra sensor
+	float Temperature = TemperatureSensors.getTempCByIndex(0);
+
+	MaxTemperature = Temperature;
+	MinTemperature = Temperature;
 
 }
 
