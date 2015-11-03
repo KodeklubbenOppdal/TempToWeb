@@ -14,7 +14,7 @@ DallasTemperature TemperatureSensors(&oneWire);
 
 // Deklarerer variabler 
 float MaxTemperature;
-
+float MinTemperature;
 
 void setup()
 {
@@ -22,6 +22,7 @@ void setup()
 	Serial.begin(9600);
 	TemperatureSensors.begin();
 	MaxTemperature = -300;
+	MinTemperature = 1000;
 
 }
 
@@ -37,7 +38,12 @@ void loop()
 	{
 		MaxTemperature = Temperature;
 	}
-	
+	// Hvis temperature er mindre en "MinTemperature" avlest, skriv temperature til "MinTemperature"
+
+	if (Temperature < MinTemperature)
+	{
+		MinTemperature = Temperature;
+	}
 	
 	// Skriver temp ut
 	String utString = "Tempreature: " + (String)Temperature;
@@ -45,5 +51,7 @@ void loop()
 	// Skriver ut max temperature
 	utString = "Max temperature: " + (String)MaxTemperature;
 	Serial.println(utString);
-
+	// Skriver ut min temperature
+	utString = "Min temperature: " + (String)MinTemperature;
+	Serial.println(utString);
 }
